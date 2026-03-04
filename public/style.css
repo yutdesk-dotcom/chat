@@ -1,11 +1,18 @@
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     text-align: center;
 }
 
 #messages {
     list-style: none;
+    padding: 0;
     height: 300px;
     overflow-y: scroll;
     border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#messages li {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
 }

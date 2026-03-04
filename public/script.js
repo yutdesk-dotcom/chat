@@ -6,10 +6,14 @@ const messages = document.getElementById("messages");
 
 let currentUser = localStorage.getItem("username");
 
+// If already registered → show chat
 if (currentUser) {
     showChat();
 }
 
+// =====================
+// Register
+// =====================
 function register() {
     const username = document.getElementById("username").value;
 
@@ -30,13 +34,22 @@ function register() {
     });
 }
 
+// =====================
+// Show Chat
+// =====================
 function showChat() {
     registerDiv.style.display = "none";
     chatDiv.style.display = "block";
 }
 
+// =====================
+// Send Message
+// =====================
 function sendMessage() {
     const input = document.getElementById("messageInput");
+
+    if (input.value.trim() === "") return;
+
     const msg = {
         user: currentUser,
         text: input.value
@@ -46,8 +59,30 @@ function sendMessage() {
     input.value = "";
 }
 
-socket.on("chat message", (msg) => {
+// =====================
+// Add Message To Screen
+// =====================
+function addMessage(msg) {
     const item = document.createElement("li");
     item.textContent = msg.user + ": " + msg.text;
     messages.appendChild(item);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+// =====================
+// Load Old Messages
+// =====================
+socket.on("load messages", (msgs) => {
+    messages.innerHTML = "";
+    msgs.forEach(msg => {
+        addMessage(msg);
+    });
+});
+
+// =====================
+// Receive New Message
+// =====================
+socket.on("chat message", (msg) => {
+    addMessage(msg);
 });
