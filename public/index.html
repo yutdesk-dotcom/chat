@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="register">
+    <h2>Create Username</h2>
+    <input type="text" id="username" placeholder="Enter username">
+    <button onclick="register()">Register</button>
+</div>
+
+<div id="chat" style="display:none;">
+    <h2>Chat Room</h2>
+    <ul id="messages"></ul>
+    <input id="messageInput" autocomplete="off">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
